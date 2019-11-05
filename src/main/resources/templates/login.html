@@ -8,7 +8,7 @@
     <title>Страница входа</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 
 
@@ -32,7 +32,7 @@
 
 
     <form class="form-signin" th:action="@{/user_authorization}" method="post">
-        <img class="mb-4" src="image/bootstrap-solid.svg" alt="" width="72" height="72">
+        <img class="mb-4" src="img/bootstrap-solid.svg" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 
         <p th:if="${param.error}" class="error font-weight-normal p-1">

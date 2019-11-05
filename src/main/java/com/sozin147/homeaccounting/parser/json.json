@@ -1,0 +1,22 @@
+{
+  "cols" : [ {
+    "label" : "Topping",
+    "type" : "string"
+  }, {
+    "label" : "Slices",
+    "type" : "number"
+  } ],
+  "rows" : [ {
+    "c" : [ {
+      "v" : "Mushrooms"
+    }, {
+      "v" : 3
+    } ]
+  }, {
+    "c" : [ {
+      "v" : "test"
+    }, {
+      "v" : 1
+    } ]
+  } ]
+}

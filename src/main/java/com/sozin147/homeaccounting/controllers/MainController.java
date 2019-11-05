@@ -22,6 +22,11 @@ public class MainController {
         return "index";
     }
 
+    @RequestMapping("/user")
+    public String userPage(){
+        return "user";
+    }
+
     @GetMapping("/login")
     public String loginPage() {
         return "login";

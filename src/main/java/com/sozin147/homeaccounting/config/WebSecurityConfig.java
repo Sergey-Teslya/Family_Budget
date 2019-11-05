@@ -49,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/", "/registration", "/login", "/user_registration",
                             "/completeRegistration").permitAll()
                     .antMatchers("/activate/*").permitAll()
-                    .antMatchers( "/css/**", "/bootstrap/**" , "/image/**", "/static/**").permitAll()
+                    .antMatchers( "/css/**", "/vendor/bootstrap/**" , "/img/**", "/static/**").permitAll()
                     .anyRequest().authenticated()
 //                    .antMatchers("/index").authenticated()
                 .and()
@@ -57,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                     .loginPage("/login")
                     .loginProcessingUrl("/user_authorization")
-                    .defaultSuccessUrl("/hello")
+                    .defaultSuccessUrl("/user")
                 //Это названия input в нашей форме
                     .usernameParameter("user_login")
                     .passwordParameter("password")
