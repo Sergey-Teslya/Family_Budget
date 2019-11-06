@@ -10,7 +10,9 @@ public interface ExpensesUserService {
 
     List<ExpensesUser> findAllExpensesByUser(CustomUser user);
 
-    List<ExpensesUser> findAllExpensesForLastWeek(CustomUser user);
+    List<ExpensesUser> findAllExpensesForDay(CustomUser user, int date);
 
-    List<ExpensesUser> findAllExpensesForLastMonth(CustomUser user);
+    List<ExpensesUser> findAllExpensesForLastWeek(CustomUser user, int date);
+
+    List<ExpensesUser> findAllExpensesForLastMonth(CustomUser user, int date);
 }

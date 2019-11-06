@@ -3,6 +3,7 @@ package com.sozin147.homeaccounting.services.impl;
 import com.sozin147.homeaccounting.DAO.ExpensesUserDAO;
 import com.sozin147.homeaccounting.model.CustomUser;
 import com.sozin147.homeaccounting.model.ExpensesUser;
+import com.sozin147.homeaccounting.model.QuantityDay;
 import com.sozin147.homeaccounting.services.ExpensesUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,13 +31,19 @@ public class ExpensesUserServiceImp implements ExpensesUserService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ExpensesUser> findAllExpensesForLastWeek(CustomUser user) {
-        return expensesDAO.findAllActiveExpensesUsersInWeek(user);
+    public List<ExpensesUser> findAllExpensesForDay(CustomUser user, int date) {
+        return expensesDAO.findAllExpensesUserInTheTime(user, date);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<ExpensesUser> findAllExpensesForLastMonth(CustomUser user) {
-        return expensesDAO.findAllActiveExpensesUsersInMonth(user);
+    public List<ExpensesUser> findAllExpensesForLastWeek(CustomUser user, int date) {
+        return expensesDAO.findAllExpensesUserInTheTime(user, date);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ExpensesUser> findAllExpensesForLastMonth(CustomUser user, int date) {
+        return expensesDAO.findAllExpensesUserInTheTime(user, date);
     }
 }

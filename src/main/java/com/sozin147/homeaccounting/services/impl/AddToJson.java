@@ -4,18 +4,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sozin147.homeaccounting.model.CategoriesBudget;
 import com.sozin147.homeaccounting.model.CustomUser;
 import com.sozin147.homeaccounting.model.ExpensesUser;
-import com.sozin147.homeaccounting.parser.DataTableDiagramPars;
-import com.sozin147.homeaccounting.parser.cols.Cols;
-import com.sozin147.homeaccounting.parser.rows.Cells;
-import com.sozin147.homeaccounting.parser.rows.Rows;
+import com.sozin147.homeaccounting.parserInJson.DataTableDiagramParsInJson;
+import com.sozin147.homeaccounting.parserInJson.cols.Cols;
+import com.sozin147.homeaccounting.parserInJson.rows.Cells;
+import com.sozin147.homeaccounting.parserInJson.rows.Rows;
 import com.sozin147.homeaccounting.services.CategoriesBudgetService;
 import com.sozin147.homeaccounting.services.ExpensesUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class AddToJson {
@@ -30,9 +29,9 @@ public class AddToJson {
     private CategoriesBudgetService categories;
 
 
-    public String addDataInJsonToPieChartDiagramFromLastWeek(CustomUser user) throws IOException {
+    public String addDataInJsonToPieChartDiagram(CustomUser user, int date) throws IOException {
         List<CategoriesBudget> categoriesList = categories.getAll();
-        List<ExpensesUser> expensesList = expenses.findAllExpensesForLastWeek(user);
+        List<ExpensesUser> expensesList = expenses.findAllExpensesForLastWeek(user, date);
 
         List<Cols> cols = new ArrayList<>();
         cols.add(new Cols("Topping", "string"));
@@ -40,10 +39,10 @@ public class AddToJson {
 
         List<Rows> rows = new ArrayList<>();
 
-        for (CategoriesBudget category : categoriesList){
+        for (CategoriesBudget category : categoriesList) {
             long count = 0;
-            for (ExpensesUser expensesUser : expensesList){
-                if (category.equals(expensesUser.getCategory())){
+            for (ExpensesUser expensesUser : expensesList) {
+                if (category.equals(expensesUser.getCategory())) {
                     count += expensesUser.getMoney();
                 }
 
@@ -67,10 +66,81 @@ public class AddToJson {
 //        rows.add(new Rows(cells));
 //        rows.add(new Rows(cells1));
 
-        DataTableDiagramPars dataTableDiagramPars = new DataTableDiagramPars(cols, rows);
+        DataTableDiagramParsInJson dataTableDiagramParsInJson = new DataTableDiagramParsInJson(cols, rows);
 
         return objectMapper.writerWithDefaultPrettyPrinter()
-                .writeValueAsString(dataTableDiagramPars);
+                .writeValueAsString(dataTableDiagramParsInJson);
+    }
+
+
+    public String addDataInJsonToColumnChartDiagram(CustomUser user, int date) throws IOException {
+        List<CategoriesBudget> categoriesList = categories.getAll();
+        List<ExpensesUser> expensesList = expenses.findAllExpensesForLastWeek(user, date);
+
+        List<Cols> cols = new ArrayList<>();
+        cols.add(new Cols("Topping", "string"));
+        for (CategoriesBudget category : categoriesList) {
+            cols.add(new Cols(category.getName(), "number"));
+        }
+
+        List<Rows> rows = new ArrayList<>();
+
+        Set<Date> setData = new TreeSet<>();
+        for (ExpensesUser expensesUser : expensesList) {
+            setData.add(expensesUser.getDate());
+        }
+
+        for (Date day : setData) {
+            List<Cells> cells = new ArrayList<>();
+            cells.add(new Cells(dayOfWeek(day)));
+
+            for (CategoriesBudget category : categoriesList) {
+                long count = 0;
+
+                for (ExpensesUser expensesUser : expensesList){
+                    if (day.equals(expensesUser.getDate())){
+
+                        if (category.equals(expensesUser.getCategory())){
+                            count += expensesUser.getMoney();
+                        }
+
+                    }
+                }
+
+                cells.add(new Cells(count));
+            }
+            rows.add(new Rows(cells));
+        }
+
+        DataTableDiagramParsInJson dataTableDiagramParsInJson = new DataTableDiagramParsInJson(cols, rows);
+
+        return objectMapper.writerWithDefaultPrettyPrinter()
+                .writeValueAsString(dataTableDiagramParsInJson);
+    }
+
+    private String dayOfWeek(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+
+        switch (dayOfWeek) {
+            case 1:
+                return "Sunday";
+            case 2:
+                return "Monday";
+            case 3:
+                return "Tuesday";
+            case 4:
+                return "Wednesday";
+            case 5:
+                return "Thursday";
+            case 6:
+                return "Friday";
+            case 7:
+                return "Saturday";
+            default:
+                return "";
+        }
     }
 
 }

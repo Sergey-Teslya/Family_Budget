@@ -10,11 +10,8 @@ import java.util.List;
 
 public interface ExpensesUserDAO extends JpaRepository<ExpensesUser, Long> {
 
-    @Query("SELECT exp FROM ExpensesUser exp WHERE exp.user = :user AND exp.date > current_date - 7")
-    List<ExpensesUser> findAllActiveExpensesUsersInWeek(@Param("user") CustomUser user);
-
-    @Query("SELECT exp FROM ExpensesUser exp WHERE exp.user = :user AND exp.date > current_date - 30")
-    List<ExpensesUser> findAllActiveExpensesUsersInMonth(@Param("user") CustomUser user);
+    @Query("SELECT exp FROM ExpensesUser exp WHERE exp.user = :user AND exp.date > current_date - :date")
+    List<ExpensesUser> findAllExpensesUserInTheTime(@Param("user") CustomUser user, @Param("date") int date);
 
     @Query("SELECT exp FROM ExpensesUser exp WHERE exp.user = :user")
     List<ExpensesUser> getExpensesByUserLogin(@Param("user") CustomUser user);

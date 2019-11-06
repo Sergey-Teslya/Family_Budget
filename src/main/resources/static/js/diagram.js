@@ -14,7 +14,7 @@ google.charts.setOnLoadCallback(testChart);
 function drawChart() {
 
     var jsonData = $.ajax({
-        url: "/dataFromDiagram",
+        url: "/dataPieChartDiagramOneWeek",
         dataType: "json",
         async: false
     }).responseText;
@@ -41,7 +41,7 @@ function drawChart() {
 function testChart() {
 
     var jsonData = $.ajax({
-        url: "/testFromDiagram",
+        url: "/dataColumnChartDiagramOneWeek",
         dataType: "json",
         async: false
     }).responseText;

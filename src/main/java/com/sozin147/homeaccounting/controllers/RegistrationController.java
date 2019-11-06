@@ -1,8 +1,8 @@
 package com.sozin147.homeaccounting.controllers;
 
-import com.sozin147.homeaccounting.model.UserRole;
 import com.sozin147.homeaccounting.filter.CheckRegistrationData;
 import com.sozin147.homeaccounting.model.CustomUser;
+import com.sozin147.homeaccounting.model.UserRole;
 import com.sozin147.homeaccounting.services.UserService;
 import com.sozin147.homeaccounting.services.impl.EmailSender;
 import org.springframework.beans.factory.annotation.Autowired;

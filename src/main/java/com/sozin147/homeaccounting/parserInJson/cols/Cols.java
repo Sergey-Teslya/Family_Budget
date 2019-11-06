@@ -1,4 +1,4 @@
-package com.sozin147.homeaccounting.parser.cols;
+package com.sozin147.homeaccounting.parserInJson.cols;
 
 public class Cols {
     private String label;

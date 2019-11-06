@@ -3,10 +3,10 @@ package com.sozin147.homeaccounting;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sozin147.homeaccounting.DAO.CategoriesBudgetDAO;
 import com.sozin147.homeaccounting.model.*;
-import com.sozin147.homeaccounting.parser.rows.Cells;
-import com.sozin147.homeaccounting.parser.cols.Cols;
-import com.sozin147.homeaccounting.parser.rows.Rows;
-import com.sozin147.homeaccounting.parser.DataTableDiagramPars;
+import com.sozin147.homeaccounting.parserInJson.cols.Cols;
+import com.sozin147.homeaccounting.parserInJson.rows.Cells;
+import com.sozin147.homeaccounting.parserInJson.rows.Rows;
+import com.sozin147.homeaccounting.parserInJson.DataTableDiagramParsInJson;
 import com.sozin147.homeaccounting.services.ExpensesUserService;
 import com.sozin147.homeaccounting.services.MoneyBudgetService;
 import com.sozin147.homeaccounting.services.UserService;
@@ -15,8 +15,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -51,7 +49,12 @@ public class Application {
 			money.addMoney(new MoneyBudget(testUser, 2000));
 			money.addMoney(new MoneyBudget(testUser, 2000));
 
-			expenses.addExpenses(new ExpensesUser(testUser, category.findByName("Досуг"), 200, "new cost", new Date(119, Calendar.DECEMBER,2)));
+			expenses.addExpenses(new ExpensesUser(testUser, category.findByName("Досуг"), 200, "new cost", new Date(119, Calendar.NOVEMBER,2)));
+			expenses.addExpenses(new ExpensesUser(testUser, category.findByName("Семья"), 100, "new cost", new Date(119, Calendar.NOVEMBER,2)));
+			expenses.addExpenses(new ExpensesUser(testUser, category.findByName("Покупки"), 50, "new cost", new Date(119, Calendar.NOVEMBER,2)));
+			expenses.addExpenses(new ExpensesUser(testUser, category.findByName("Семья"), 400, "new cost", new Date(119, Calendar.NOVEMBER,4)));
+			expenses.addExpenses(new ExpensesUser(testUser, category.findByName("Покупки"), 300, "new cost", new Date(119, Calendar.NOVEMBER,4)));
+			expenses.addExpenses(new ExpensesUser(testUser, category.findByName("Досуг"), 600, "new cost", new Date(119, Calendar.NOVEMBER,4)));
 			expenses.addExpenses(new ExpensesUser(testUser, category.findByName("Покупки"), 200, "new cost", new Date()));
 			expenses.addExpenses(new ExpensesUser(testUser, category.findByName("Покупки"), 200, "new cost", new Date()));
 
@@ -77,14 +80,14 @@ public class Application {
 			rows.add(new Rows(cells));
 			rows.add(new Rows(cells1));
 
-			DataTableDiagramPars dataTableDiagramPars = new DataTableDiagramPars(cols, rows);
+			DataTableDiagramParsInJson dataTableDiagramParsInJson = new DataTableDiagramParsInJson(cols, rows);
 
 
 			String jsonString = objectMapper.writerWithDefaultPrettyPrinter()
-					.writeValueAsString(dataTableDiagramPars);
+					.writeValueAsString(dataTableDiagramParsInJson);
 
-			Files.write(Paths.get("src\\main\\java\\com\\sozin147\\homeaccounting\\parser\\json.json")
-					,jsonString.getBytes());
+//			Files.write(Paths.get("src\\main\\java\\com\\sozin147\\homeaccounting\\parser\\json.json")
+//					,jsonString.getBytes());
 
 
 //			List<ExpensesUser> ttt = expenses.getExpensesForLastWeek(testUser);

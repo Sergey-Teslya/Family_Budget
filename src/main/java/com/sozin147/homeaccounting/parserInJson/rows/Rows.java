@@ -1,4 +1,4 @@
-package com.sozin147.homeaccounting.parser.rows;
+package com.sozin147.homeaccounting.parserInJson.rows;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
