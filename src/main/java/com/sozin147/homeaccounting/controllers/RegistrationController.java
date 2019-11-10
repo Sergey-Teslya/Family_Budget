@@ -6,6 +6,7 @@ import com.sozin147.homeaccounting.model.UserRole;
 import com.sozin147.homeaccounting.services.UserService;
 import com.sozin147.homeaccounting.services.impl.EmailSender;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,9 @@ public class RegistrationController {
 
     @Autowired
     private EmailSender emailSender;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @RequestMapping(value = "/user_registration", method = RequestMethod.POST)
     public String registerUser(@RequestParam(value = "user_login") String login,
@@ -44,7 +48,8 @@ public class RegistrationController {
         }
 
         CustomUser user = new CustomUser(login, email, password, UserRole.USER, false, UUID.randomUUID().toString());
-        userService.addUser(user);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userService.saveUser(user);
         emailSender.sendMessageMail(user);
 
         return "redirect:/completeRegistration";
@@ -56,10 +61,10 @@ public class RegistrationController {
     }
 
     @GetMapping("/activate/{code}")
-    public String activate(@PathVariable String code, Model model){
+    public String activate(@PathVariable String code, Model model) {
         boolean isActivate = userService.activateUser(code);
 
-        if (isActivate){
+        if (isActivate) {
             model.addAttribute("activate", "Account Activate");
         } else {
             model.addAttribute("activate", "Activation code is not found");

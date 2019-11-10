@@ -3,17 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Activate Account</title>
+    <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="img/favicon-16x16.png" sizes="16x16" />
+    <link href="vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="/css/main.css" rel="stylesheet">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
 </head>
-<body>
 
-    <div>
-        <div>
-            <p th:utext="${activate}"></p>
-            <div><a href="/login"> Вход </a></div>
-            <div><a href="/"> Главная страница </a></div>
-        </div>
+<body class="text-center">
+
+    <div class="form-signin">
+        <img class="mb-4" src="img/bootstrap-solid.svg" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal" th:utext="${activate}"></h1>
+        <a href="/login" role="button" class="btn btn-lg btn-primary btn-block text-decoration-none"> Вход </a>
+        <a href="/" role="button" class="btn btn-lg btn-primary btn-block text-decoration-none"> Главная страница </a>
+        <p class="mt-5 mb-3 text-muted">© 2019-2020</p>
     </div>
-
 
 </body>
 </html>

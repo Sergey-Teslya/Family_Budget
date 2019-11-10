@@ -11,17 +11,17 @@ public class CheckRegistrationData {
     @Autowired
     UserService userService;
 
-    public boolean checkEmailForDuplicates(String email){
+    public boolean checkEmailForDuplicates(String email) {
         String userEmail = userService.getUserEmail(email);
         return userEmail != null;
     }
 
-    public boolean checkLoginForDuplicates(String login){
+    public boolean checkLoginForDuplicates(String login) {
         String userLogin = userService.getUserLogin(login);
         return userLogin != null;
     }
 
-    public boolean checkDataForNull(String login, String email, String password){
+    public boolean checkDataForNull(String login, String email, String password) {
         return StringUtils.isEmpty(login) || StringUtils.isEmpty(email) || StringUtils.isEmpty(password);
     }
 

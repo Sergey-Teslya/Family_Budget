@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -11,6 +11,8 @@
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+    <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="img/favicon-16x16.png" sizes="16x16" />
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -29,7 +31,13 @@
 <body class="text-center">
 
     <div class="form-signin">
+        <img class="mb-4" src="img/bootstrap-solid.svg" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">This Main Page</h1>
+
+        <p th:if="${param.logout}" class="error font-weight-normal p-1">
+            You have been logout out.
+        </p>
+
         <a href="/login" role="button" class="btn btn-lg btn-primary btn-block text-decoration-none"> Вход </a>
         <a href="/registration" role="button" class="btn btn-lg btn-primary btn-block text-decoration-none"> Регистрация </a>
         <p class="mt-5 mb-3 text-muted">© 2019-2020</p>

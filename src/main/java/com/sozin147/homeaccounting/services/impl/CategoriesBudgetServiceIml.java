@@ -30,7 +30,7 @@ public class CategoriesBudgetServiceIml implements CategoriesBudgetService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<CategoriesBudget> getAll() {
+    public List<CategoriesBudget> getAllCategories() {
         return categoriesDAO.findAll();
     }
 

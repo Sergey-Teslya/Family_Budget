@@ -1,14 +1,18 @@
 package com.sozin147.homeaccounting.model;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@Table()
+@Table
 @NoArgsConstructor
 @EqualsAndHashCode
+@Getter
+@Setter
 public class MoneyBudget {
     @Id
     @GeneratedValue

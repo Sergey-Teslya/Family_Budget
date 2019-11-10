@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean activateUser(String code) {
         CustomUser user = customUserDAO.findByActivationCode(code);
-        if (user == null){
+        if (user == null) {
             return false;
         }
 
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void addUser(CustomUser customUser) {
+    public void saveUser(CustomUser customUser) {
         customUserDAO.save(customUser);
     }
 }

@@ -8,11 +8,10 @@ import java.util.List;
 public interface ExpensesUserService {
     void addExpenses(ExpensesUser expenses);
 
+    long getSumExpensesUserForLastMonth(CustomUser user);
+
     List<ExpensesUser> findAllExpensesByUser(CustomUser user);
 
-    List<ExpensesUser> findAllExpensesForDay(CustomUser user, int date);
+    List<ExpensesUser> findAllExpensesForDate(CustomUser user, int date);
 
-    List<ExpensesUser> findAllExpensesForLastWeek(CustomUser user, int date);
-
-    List<ExpensesUser> findAllExpensesForLastMonth(CustomUser user, int date);
 }

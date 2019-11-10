@@ -13,10 +13,10 @@ public class EmailSender {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    public void sendMessageMail(CustomUser user){
-        if (user != null){
+    public void sendMessageMail(CustomUser user) {
+        if (user != null) {
             String message = String.format("Hello, %s! \n" +
-                    "Welcome to Home Accounting. Please, visit next link " + LINK_ACTIVE + "%s",
+                            "Welcome to Home Accounting. Please, visit next link " + LINK_ACTIVE + "%s",
                     user.getLogin(),
                     user.getActivationCode()
             );
@@ -25,7 +25,7 @@ public class EmailSender {
         }
     }
 
-    private void templateSendMessage(String sendTo, String message){
+    private void templateSendMessage(String sendTo, String message) {
 
         SimpleMailMessage msg = new SimpleMailMessage();
 

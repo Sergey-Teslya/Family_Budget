@@ -39,5 +39,4 @@ public class ExpensesUser {
         this.comment = comment;
         this.date = date;
     }
-
 }

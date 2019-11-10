@@ -29,21 +29,23 @@ public class ExpensesUserServiceImp implements ExpensesUserService {
         return expensesDAO.getExpensesByUserLogin(user);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<ExpensesUser> findAllExpensesForDay(CustomUser user, int date) {
-        return expensesDAO.findAllExpensesUserInTheTime(user, date);
-    }
 
     @Override
     @Transactional(readOnly = true)
-    public List<ExpensesUser> findAllExpensesForLastWeek(CustomUser user, int date) {
+    public List<ExpensesUser> findAllExpensesForDate(CustomUser user, int date) {
         return expensesDAO.findAllExpensesUserInTheTime(user, date);
     }
 
+
     @Override
     @Transactional(readOnly = true)
-    public List<ExpensesUser> findAllExpensesForLastMonth(CustomUser user, int date) {
-        return expensesDAO.findAllExpensesUserInTheTime(user, date);
+    public long getSumExpensesUserForLastMonth(CustomUser user) {
+        long sum = 0;
+        List<ExpensesUser> expensesList = expensesDAO.findAllExpensesUserInTheTime(user, QuantityDay.ONE_MONTH.day);
+
+        for (ExpensesUser expenses : expensesList)
+            sum += expenses.getMoney();
+
+        return sum;
     }
 }

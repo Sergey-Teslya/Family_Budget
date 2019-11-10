@@ -7,7 +7,9 @@ import java.util.Optional;
 
 public interface CategoriesBudgetService {
     void addCategory(CategoriesBudget category);
-    List<CategoriesBudget> getAll();
+
+    List<CategoriesBudget> getAllCategories();
+
     CategoriesBudget getCategoryByName(String name);
 
     Optional<CategoriesBudget> getCategoryById(long id);

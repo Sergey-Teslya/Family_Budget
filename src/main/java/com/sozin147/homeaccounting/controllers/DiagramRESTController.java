@@ -22,6 +22,13 @@ public class DiagramRESTController {
     @Autowired
     private UserService userService;
 
+    @RequestMapping("/dataPieChartDiagramOneDay")
+    public String dataPieChartDiagramOneDay(@AuthenticationPrincipal User activeUser) throws IOException {
+        CustomUser user = userService.getUserByLogin(activeUser.getUsername());
+
+        return addToJson.addDataInJsonToPieChartDiagram(user, QuantityDay.ONE_DAY.day);
+    }
+
     @RequestMapping("/dataPieChartDiagramOneWeek")
     public String dataPieChartDiagramOneWeek(@AuthenticationPrincipal User activeUser) throws IOException {
         CustomUser user = userService.getUserByLogin(activeUser.getUsername());
@@ -29,31 +36,27 @@ public class DiagramRESTController {
         return addToJson.addDataInJsonToPieChartDiagram(user, QuantityDay.ONE_WEEK.day);
     }
 
+    @RequestMapping("/dataPieChartDiagramOneMonth")
+    public String dataPieChartDiagramOneMonth(@AuthenticationPrincipal User activeUser) throws IOException {
+        CustomUser user = userService.getUserByLogin(activeUser.getUsername());
+
+        return addToJson.addDataInJsonToPieChartDiagram(user, QuantityDay.ONE_MONTH.day);
+    }
+
     @RequestMapping("/dataColumnChartDiagramOneWeek")
     public String dataColumnChartDiagramOneWeek(@AuthenticationPrincipal User activeUser) throws IOException {
-//        String test = "{\n" +
-//                "  \"cols\": [\n" +
-//                "    {\"label\":\"Topping\",\"type\":\"string\"},\n" +
-//                "    {\"label\":\"Price\",\"type\":\"number\"},\n" +
-//                "    {\"label\":\"Price\",\"type\":\"number\"},\n" +
-//                "    {\"label\":\"Price\",\"type\":\"number\"},\n" +
-//                "    {\"label\":\"Price\",\"type\":\"number\"},\n" +
-//                "    {\"label\":\"Price\",\"type\":\"number\"}\n" +
-//                "  ],\n" +
-//                "  \"rows\": [\n" +
-//                "    {\"c\":[{\"v\":\"Mushrooms\"},{\"v\":3},{\"v\":1},{\"v\":1},{\"v\":1},{\"v\":1}]},\n" +
-//                "    {\"c\":[{\"v\":\"Onions\"},{\"v\":1},{\"v\":1},{\"v\":1},{\"v\":1},{\"v\":1}]},\n" +
-//                "    {\"c\":[{\"v\":\"Olives\"},{\"v\":1},{\"v\":1},{\"v\":1},{\"v\":1},{\"v\":1}]},\n" +
-//                "    {\"c\":[{\"v\":\"Zucchini\"},{\"v\":1},{\"v\":1},{\"v\":1},{\"v\":1},{\"v\":1}]},\n" +
-//                "    {\"c\":[{\"v\":\"Pepperoni\"},{\"v\":2},{\"v\":1},{\"v\":1},{\"v\":1},{\"v\":1}]}\n" +
-//                "  ]\n" +
-//                "}";
-//
-//        return test;
 
         CustomUser user = userService.getUserByLogin(activeUser.getUsername());
 
-        return addToJson.addDataInJsonToColumnChartDiagram(user, QuantityDay.ONE_WEEK.day);
+        return addToJson.addDataInJsonToColumnChartDiagramLastWeek(user, QuantityDay.ONE_WEEK.day);
+    }
+
+    @RequestMapping("/dataColumnChartDiagramMonth")
+    public String dataColumnChartDiagramOneMonth(@AuthenticationPrincipal User activeUser) throws IOException {
+
+        CustomUser user = userService.getUserByLogin(activeUser.getUsername());
+
+        return addToJson.addDataInJsonToColumnChartDiagramLastMonth(user, QuantityDay.ONE_MONTH.day);
     }
 
 }
