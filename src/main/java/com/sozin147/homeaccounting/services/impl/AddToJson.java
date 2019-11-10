@@ -56,17 +56,6 @@ public class AddToJson {
             rows.add(new Rows(cells));
         }
 
-//        List<Cells> cells = new ArrayList<>();
-//        List<Cells> cells1 = new ArrayList<>();
-//        cells.add(new Cells("Mushrooms"));
-//        cells.add(new Cells(3));
-//
-//        cells1.add(new Cells("test"));
-//        cells1.add(new Cells(1));
-//
-//        List<Rows> rows = new ArrayList<>();
-//        rows.add(new Rows(cells));
-//        rows.add(new Rows(cells1));
 
         DataTableDiagramParsInJson dataTableDiagramParsInJson = new DataTableDiagramParsInJson(cols, rows);
 
