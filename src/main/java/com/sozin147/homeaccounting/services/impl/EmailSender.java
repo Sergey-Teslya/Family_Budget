@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EmailSender {
-    private final String LINK_ACTIVE = "https://spring-boot-family-budget.herokuapp.com/";
+    private final String LINK_ACTIVE = "https://spring-boot-family-budget.herokuapp.com/activate/";
 
     @Autowired
     private JavaMailSender javaMailSender;
