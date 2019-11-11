@@ -15,7 +15,7 @@
     <name>home-accounting</name>
     <description>Нome accounting project for Spring Boot</description>
 
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <properties>
         <java.version>1.8</java.version>
