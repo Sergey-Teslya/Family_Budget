@@ -58,7 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/", "/registration", "/login", "/user_registration",
                             "/completeRegistration").permitAll()
                     .antMatchers("/activate/*").permitAll()
-                    .antMatchers( "/css/**", "/vendor/bootstrap/**" , "/img/**", "/static/**").permitAll()
+                    .antMatchers( "/css/**", "/vendor/bootstrap/dist/**" , "/img/*", "/static/**").permitAll()
                     .anyRequest().authenticated()
 //                    .antMatchers("/index").authenticated()
                 .and()
