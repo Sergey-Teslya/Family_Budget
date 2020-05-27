@@ -1,7 +1,7 @@
 package com.sozin147.homeaccounting.controllers;
 
 import com.sozin147.homeaccounting.model.*;
-import com.sozin147.homeaccounting.services.CategoriesBudgetService;
+import com.sozin147.homeaccounting.services.CategoryService;
 import com.sozin147.homeaccounting.services.ExpensesUserService;
 import com.sozin147.homeaccounting.services.MoneyBudgetService;
 import com.sozin147.homeaccounting.services.UserService;
@@ -26,7 +26,7 @@ public class MainController {
     private ExpensesUserService expensesUserService;
 
     @Autowired
-    private CategoriesBudgetService categoriesBudget;
+    private CategoryService categoriesBudget;
 
     @Autowired
     private MoneyBudgetService moneyBudgetService;
@@ -55,7 +55,7 @@ public class MainController {
     public String costsPage(@AuthenticationPrincipal User activeUser, Model model) {
         CustomUser user = userService.getUserByLogin(activeUser.getUsername());
 
-        List<CategoriesBudget> categoriesList = categoriesBudget.getAllCategories();
+        List<Category> categoriesList = categoriesBudget.getAllCategories();
         MoneyBudget moneyBudget = moneyBudgetService.getMoneyBudgetUser(user);
 
         if (moneyBudget == null)
@@ -91,4 +91,8 @@ public class MainController {
         return "diagram";
     }
 
+    @GetMapping("/file")
+    public String filesPage() {
+      return "file";
+    }
 }

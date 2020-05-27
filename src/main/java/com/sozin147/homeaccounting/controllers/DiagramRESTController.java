@@ -1,7 +1,9 @@
 package com.sozin147.homeaccounting.controllers;
 
+import com.sozin147.homeaccounting.model.BudgetCategory;
 import com.sozin147.homeaccounting.model.CustomUser;
 import com.sozin147.homeaccounting.model.QuantityDay;
+import com.sozin147.homeaccounting.services.BudgetCategoryService;
 import com.sozin147.homeaccounting.services.UserService;
 import com.sozin147.homeaccounting.services.impl.AddToJson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.List;
 
 //Указывает что принимает и возвращает только JSON, без vue части
 @RestController
@@ -21,6 +24,9 @@ public class DiagramRESTController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private BudgetCategoryService budgetCategoryService;
 
     @RequestMapping("/dataPieChartDiagramOneDay")
     public String dataPieChartDiagramOneDay(@AuthenticationPrincipal User activeUser) throws IOException {
@@ -59,4 +65,10 @@ public class DiagramRESTController {
         return addToJson.addDataInJsonToColumnChartDiagramLastMonth(user, QuantityDay.ONE_MONTH.day);
     }
 
+  @RequestMapping("/categoryBudget")
+  public List<BudgetCategory> dataCategoryBudget(@AuthenticationPrincipal User activeUser) {
+    CustomUser user = userService.getUserByLogin(activeUser.getUsername());
+    budgetCategoryService.getCategories(user);
+    return budgetCategoryService.getCategories(user);
+  }
 }

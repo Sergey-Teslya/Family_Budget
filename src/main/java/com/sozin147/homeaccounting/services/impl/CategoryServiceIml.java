@@ -1,8 +1,8 @@
 package com.sozin147.homeaccounting.services.impl;
 
-import com.sozin147.homeaccounting.DAO.CategoriesBudgetDAO;
-import com.sozin147.homeaccounting.model.CategoriesBudget;
-import com.sozin147.homeaccounting.services.CategoriesBudgetService;
+import com.sozin147.homeaccounting.DAO.CategoryDAO;
+import com.sozin147.homeaccounting.model.Category;
+import com.sozin147.homeaccounting.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,32 +11,32 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CategoriesBudgetServiceIml implements CategoriesBudgetService {
+public class CategoryServiceIml implements CategoryService {
 
     @Autowired
-    private CategoriesBudgetDAO categoriesDAO;
+    private CategoryDAO categoriesDAO;
 
     @Override
     @Transactional(readOnly = true)
-    public CategoriesBudget getCategoryByName(String name) {
+    public Category getCategoryByName(String name) {
         return categoriesDAO.findByName(name);
     }
 
     @Override
     @Transactional
-    public void addCategory(CategoriesBudget category) {
+    public void addCategory(Category category) {
         categoriesDAO.save(category);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<CategoriesBudget> getAllCategories() {
+    public List<Category> getAllCategories() {
         return categoriesDAO.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<CategoriesBudget> getCategoryById(long id) {
+    public Optional<Category> getCategoryById(long id) {
         return categoriesDAO.findById(id);
     }
 }

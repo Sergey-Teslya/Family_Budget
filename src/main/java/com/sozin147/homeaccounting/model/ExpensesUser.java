@@ -22,7 +22,7 @@ public class ExpensesUser {
     private CustomUser user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private CategoriesBudget category;
+    private Category category;
 
     @Column(name = "money_expenses")
     private Integer money;
@@ -32,7 +32,7 @@ public class ExpensesUser {
     @Temporal(TemporalType.DATE)
     private Date date;
 
-    public ExpensesUser(CustomUser user, CategoriesBudget category, Integer money, String comment, Date date) {
+    public ExpensesUser(CustomUser user, Category category, Integer money, String comment, Date date) {
         this.user = user;
         this.category = category;
         this.money = money;

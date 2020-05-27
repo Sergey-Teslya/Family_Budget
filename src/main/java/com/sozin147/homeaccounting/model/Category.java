@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @EqualsAndHashCode
-public class CategoriesBudget {
+public class Category {
     @Id
     @GeneratedValue
     private long id;
@@ -19,7 +19,7 @@ public class CategoriesBudget {
     @Column(name = "name")
     private String name;
 
-    public CategoriesBudget(String name) {
+    public Category(String name) {
         this.name = name;
     }
 }

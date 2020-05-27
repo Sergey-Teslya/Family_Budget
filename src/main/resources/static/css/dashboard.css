@@ -62,6 +62,10 @@ body {
     color: inherit;
 }
 
+.file:hover {
+  fill: white;
+}
+
 .sidebar-heading {
     font-size: .75rem;
     text-transform: uppercase;

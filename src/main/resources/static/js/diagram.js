@@ -9,10 +9,49 @@ google.charts.setOnLoadCallback(PieChartDataOfTheWeek);
 google.charts.setOnLoadCallback(PieChartDataOfTheMonth);
 google.charts.setOnLoadCallback(ColumnChartDataOfWeek);
 google.charts.setOnLoadCallback(ColumnChartDataOfMonth);
+google.charts.setOnLoadCallback(PieChartCategoryBudget);
 
 // Callback that creates and populates a data table,
 // instantiates the pie chart, passes in the data and
 // draws it.
+
+function PieChartCategoryBudget() {
+  let rows = [];
+
+  var results = $.ajax({
+    url: "/categoryBudget",
+    dataType: "json",
+    async: false
+  }).responseJSON;
+
+
+  for (let result of results) {
+    rows.push({c: [{v: result.category.name}, {v: result.money}]})
+  }
+
+  let jsonData = {
+    cols: [{label: "Topping", pattern: "", type: "string"},
+      {label: "Slices", pattern: "", type: "number"}],
+    rows
+  };
+
+  console.log(jsonData);
+
+  // Create the data table.
+  var data = new google.visualization.DataTable(jsonData);
+
+  // Set chart options
+  var options = {
+    colors: ['#e74a3b', '#f6c23e', '#858796', '#4e73df', '#1cc88a', '#36b9cc'],
+    legend: 'bottom',
+    pieSliceText: 'none',
+    pieHole: 0.8
+  };
+
+  // Instantiate and draw our chart, passing in some options.
+  var chart = new google.visualization.PieChart(document.getElementById('pie-chart-budget-category'));
+  chart.draw(data, options);
+}
 
 function PieChartDataOfTheDay() {
 
@@ -22,6 +61,7 @@ function PieChartDataOfTheDay() {
         async: false
     }).responseText;
 
+    console.log(jsonData);
     // Create the data table.
     var data = new google.visualization.DataTable(jsonData);
 

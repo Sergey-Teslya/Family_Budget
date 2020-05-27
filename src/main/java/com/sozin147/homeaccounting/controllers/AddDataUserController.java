@@ -1,13 +1,7 @@
 package com.sozin147.homeaccounting.controllers;
 
-import com.sozin147.homeaccounting.model.CategoriesBudget;
-import com.sozin147.homeaccounting.model.CustomUser;
-import com.sozin147.homeaccounting.model.ExpensesUser;
-import com.sozin147.homeaccounting.model.MoneyBudget;
-import com.sozin147.homeaccounting.services.CategoriesBudgetService;
-import com.sozin147.homeaccounting.services.ExpensesUserService;
-import com.sozin147.homeaccounting.services.MoneyBudgetService;
-import com.sozin147.homeaccounting.services.UserService;
+import com.sozin147.homeaccounting.model.*;
+import com.sozin147.homeaccounting.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
@@ -32,10 +26,13 @@ public class AddDataUserController {
     private ExpensesUserService expensesUserService;
 
     @Autowired
-    private CategoriesBudgetService categoriesBudgetService;
+    private CategoryService categoryService;
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private BudgetCategoryService budgetCategoryService;
 
     @RequestMapping(value = "/add_money_budget", method = RequestMethod.POST)
     public String addMoneyBudget(@RequestParam Integer money, @AuthenticationPrincipal User activeUser) {
@@ -61,7 +58,7 @@ public class AddDataUserController {
 
         CustomUser user = userService.getUserByLogin(activeUser.getUsername());
 
-        Optional<CategoriesBudget> categoriesBudget = categoriesBudgetService.getCategoryById(category);
+        Optional<Category> categoriesBudget = categoryService.getCategoryById(category);
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy");
         Date date = dateFormat.parse(stringDate);
         expensesUserService.addExpenses(new ExpensesUser(user, categoriesBudget.get(), money, comment, date));
@@ -71,8 +68,29 @@ public class AddDataUserController {
         moneyInBudgetUser -= money;
         moneyBudget.setMoney(moneyInBudgetUser);
 
+        BudgetCategory categoryBudget = budgetCategoryService.getCategoryBudget(categoriesBudget.get(), user);
+        Integer moneyCategory = categoryBudget.getMoney();
+        moneyCategory -= money;
+        categoryBudget.setMoney(moneyCategory);
+        budgetCategoryService.create(categoryBudget);
+
         moneyBudgetService.updateMoneyBudget(moneyBudget);
         return "redirect:/costs";
+    }
+
+    @RequestMapping(value = "/budget/category", method = RequestMethod.POST)
+    public String createBudgetCategory(@RequestParam Integer money, @RequestParam long category,
+                                       @AuthenticationPrincipal User activeUser) {
+
+      if (category == 0) {
+        return "redirect:/costs?error";
+      }
+
+      CustomUser user = userService.getUserByLogin(activeUser.getUsername());
+      Optional<Category> categoryBudget = categoryService.getCategoryById(category);
+      budgetCategoryService.create(new BudgetCategory(categoryBudget.get(), user, money));
+
+      return "redirect:/costs";
     }
 
 }
